@@ -1,19 +1,36 @@
 package View;
 
+import Controller.MenuButtonsActionListener;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class Menu extends JFrame {
+    JPanel panel = new JPanel();
+    SpringLayout layout = new SpringLayout();
+
+    JButton startButton = new JButton("Start");
+    JButton resultsButton = new JButton("Results");
+    JButton exitButton = new JButton(("Exit"));
+
+
+    MenuButtonsActionListener buttonsListener = new MenuButtonsActionListener();
     public Menu() {
-        JPanel panel = new JPanel();
-        SpringLayout layout = new SpringLayout();
+        setMenuLayout();
+        attachListenerToButtons();
+        add(panel);
+        setSize(800, 800);
+        setTitle("Pacman");
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setVisible(true);
+    }
+
+    private void setMenuLayout() {
         panel.setLayout(layout);
         Font font = new Font(Font.SERIF,Font.BOLD,40);
-        JButton startButton = new JButton("Start");
         startButton.setFont(font);
-        JButton resultsButton = new JButton("Results");
         resultsButton.setFont(font);
-        JButton exitButton = new JButton(("Exit"));
         exitButton.setFont(font);
 
         panel.add(startButton);
@@ -27,11 +44,11 @@ public class Menu extends JFrame {
         layout.putConstraint(SpringLayout.NORTH, exitButton, 200, SpringLayout.SOUTH, resultsButton);
         layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, exitButton, 0, SpringLayout.HORIZONTAL_CENTER, panel);
         panel.setBackground(Color.BLACK);
-        add(panel);
-        setSize(800, 800);
-        setTitle("Pacman");
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setVisible(true);
+    }
+
+    private void attachListenerToButtons() {
+        startButton.addActionListener(buttonsListener);
+        resultsButton.addActionListener(buttonsListener);
+        exitButton.addActionListener(buttonsListener);
     }
 }
